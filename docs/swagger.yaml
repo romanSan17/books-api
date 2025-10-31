@@ -86,6 +86,21 @@ paths:
             operationId: id
             summary: Get full details of a game
             description: Returns full details of a given id game
+        delete:
+            tags:
+                - delete
+            responses:
+                '204':
+                    description: no content
+                '404':
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/error'
+                    description: Game was not delete
+            operationId: delete
+            summary: delete game
+            description: delete game for id
         parameters:
             -
                 name: id
@@ -118,3 +133,14 @@ components:
             example:
                 name: Tetris
                 price: '0.99'
+        delete-game:
+            description: ''
+            required:
+                - id
+            type: object
+            properties:
+                id:
+                    description: ''
+                    type: number
+            example:
+                id: 1
