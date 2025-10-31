@@ -36,7 +36,7 @@ app.post('/games', (req, res) => {
         price: req.body.price,
         name: req.body.name
     }
-    game.push(game)
+    games.push(game)
 
     res.status(201)
         .location(`${getBaseUrl(req)}/games/${games.length}`)
