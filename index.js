@@ -8,7 +8,7 @@ const swaggerDocument = yamljs.load('./docs/swagger.yaml')
 app.use(express.json())
 
 const games = [
-    {id: 1, name: "Witcher 3", price: 29.99},
+    {id: 1, name: "Witcher 2", price: 29.99},
     {id: 2, name: "Cyberpunk 2077", price: 59.99},
     {id: 3, name: "Minecraft", price: 26.99}
 ]
