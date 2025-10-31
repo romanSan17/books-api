@@ -1,16 +1,8 @@
 openapi: 3.0.2
 info:
-    title: books-api
+    title: games-api
     version: 1.0.0
-    description: >-
-        ### This is a Swagger UI for our Games API  \n\n### Error handling\nErrors are presented using the
-        HTTP status codes 400-599. The response include a more detailed explanation about the error in the
-        body.\n\n```\n{\n  \"error\": \"Cleartext explanation of the error that occurred\"\n}\n```\n\n###
-        Generic API errors\nThese error responses can be returned by any of the described endpoints.\n\n| HTTP
-        status  |  Description |\n|---|---|\n| 400| Bad input parameters or invalid request. More information
-        can be found in the response body.\n| 401| The consumer does not have access to the requested resource
-        or the provided token is not valid.\n| 404| The requested resource can not be found or the user does
-        not have access to the resource.\n| 5XX| A server error has occurred while processing the request.
+    description: This is a Swagger UI for our Games API
 paths:
     /games:
         get:
@@ -21,17 +13,36 @@ paths:
                     content:
                         application/json:
                             schema:
-                                type: array
-                                items:
-                                    type: string
+                                type: string
                             examples:
-                                'List of games ':
+                                List of games:
                                     value:
                                         - Witcher 3
                                         - Cyberpunk 2077
-                    description: Returns a list of games
-            summary: 'GET: Get a list of all games.'
-            description: 'GET: Returns a list of all games in API'
+                    description: application/json
+            summary: Get list of all games
+            description: Returns a list of all games in API
+        post:
+            requestBody:
+                description: A new game to be created
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/error'
+                required: true
+            tags:
+                - new-game
+            responses:
+                '201':
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/new-game'
+                    description: create a new game
+                '400':
+                    description: One or all params are missing
+            summary: add game in list
+            description: creates a new game
     '/games/{id}':
         get:
             tags:
@@ -45,21 +56,41 @@ paths:
                                 items:
                                     type: string
                             examples:
-                                full detaols of id games:
-                                    value: >-
-                                        {"id":1,"name":"Witcher 3","price":29.99},{"id":2,"name":"Cyberpunk
-                                        2077","price":59.99},{"id":3,"name":"Minecraft","price":26.99}
-                    description: |
-                        Returns full details
+                                Full details of a given game:
+                                    value: |-
+                                        {
+                                            "id": 1,
+                                            "name": "Witcher 2",
+                                            "price": 29.99
+                                          },
+                                          {
+                                            "id": 2,
+                                            "name": "Cyberpunk 2077",
+                                            "price": 59.99
+                                          },
+                                          {
+                                            "id": 3,
+                                            "name": "Minecraft",
+                                            "price": 26.99
+                                          }
+                    description: Returns full details of a given id game
                 '404':
                     content:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/error'
+                            examples:
+                                Game \\w+ was not found in game array:
+                                    value: Game was not found in game array.
                     description: Game was not found in games array
             operationId: id
-            summary: Get full details of game
-            description: Returns a game in API
+            summary: Get full details of a game
+            description: Returns full details of a given id game
+        parameters:
+            -
+                name: id
+                in: path
+                required: true
 components:
     schemas:
         error:
@@ -70,4 +101,20 @@ components:
                 error:
                     type: string
             example:
-                error: Error message
+                error: Error message.
+        new-game:
+            title: Root Type for new-game
+            description: ''
+            required:
+                - price
+                - name
+            type: object
+            properties:
+                name:
+                    type: string
+                price:
+                    format: float
+                    type: number
+            example:
+                name: Tetris
+                price: '0.99'
