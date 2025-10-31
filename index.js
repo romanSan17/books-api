@@ -10,7 +10,9 @@ app.use(express.json())
 const games = [
     {id: 1, name: "Witcher 2", price: 29.99},
     {id: 2, name: "Cyberpunk 2077", price: 59.99},
-    {id: 3, name: "Minecraft", price: 26.99}
+    {id: 3, name: "Minecraft", price: 26.99},
+    {id: 3, name: "CS2", price: 26.99},
+    {id: 3, name: "Albion", price: 21.99}
 ]
 app.get('/games', (req, res) => {
     res.send(games)
