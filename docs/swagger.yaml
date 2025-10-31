@@ -25,10 +25,6 @@ paths:
         post:
             requestBody:
                 description: A new game to be created
-                content:
-                    application/json:
-                        schema:
-                            $ref: '#/components/schemas/error'
                 required: true
             tags:
                 - new-game
@@ -40,6 +36,10 @@ paths:
                                 $ref: '#/components/schemas/new-game'
                     description: create a new game
                 '400':
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/error'
                     description: One or all params are missing
             summary: add game in list
             description: creates a new game
