@@ -14,7 +14,7 @@ const games = [
     {id: 2, name: "Cyberpunk 2077", price: 59.99},
     {id: 3, name: "Minecraft", price: 26.99},
     {id: 4, name: "CS2", price: 26.99},
-    {id: 5, name: "Albion", price: 21.99}
+    {id: 5, name: "Albion", price: 20.99}
 ]
 app.get('/games', (req, res) => {
     res.send(games)
